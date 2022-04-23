@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.better_sit_floor">
+    package="com.better_sit.floor">
    <application
         android:label="Better Sit"
         android:name="${applicationName}"

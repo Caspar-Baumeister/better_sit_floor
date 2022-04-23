@@ -1,4 +1,4 @@
-package com.example.better_sit_floor
+package com.better_sit.floor
 
 import io.flutter.embedding.android.FlutterActivity
 
