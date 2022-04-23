@@ -20,9 +20,6 @@ class PosturePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(children: [
-        const SizedBox(
-          height: 30,
-        ),
         Container(
           padding: const EdgeInsets.all(14).copyWith(bottom: 6),
           alignment: Alignment.centerLeft,

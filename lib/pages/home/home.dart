@@ -28,7 +28,6 @@ class _HomeState extends State<Home> {
       body: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const SizedBox(height: 20),
           Container(
             padding: const EdgeInsets.all(8),
             child: Row(

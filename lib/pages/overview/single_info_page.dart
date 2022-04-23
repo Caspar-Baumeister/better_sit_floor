@@ -1,6 +1,7 @@
+import 'package:better_sit_floor/shared/ad_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:better_sit_floor/model/posture.dart';
-// import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:better_sit_floor/shared/constants.dart';
 
 class SinglePosturePage extends StatefulWidget {
@@ -18,22 +19,22 @@ class SinglePosturePage extends StatefulWidget {
 class _SinglePosturePageState extends State<SinglePosturePage> {
   @override
   void dispose() {
-    // myBanner.dispose();
+    myBanner.dispose();
     super.dispose();
   }
 
   @override
   void initState() {
-    // myBanner.load();
+    myBanner.load();
     super.initState();
   }
 
-  // final BannerAd myBanner = BannerAd(
-  //   adUnitId: BANNER_ID,
-  //   size: AdSize.banner,
-  //   request: const AdRequest(),
-  //   listener: const BannerAdListener(),
-  // );
+  final BannerAd myBanner = BannerAd(
+    adUnitId: AdHelper(testing: false).bannerAdUnitId,
+    size: AdSize.banner,
+    request: const AdRequest(),
+    listener: const BannerAdListener(),
+  );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,11 +115,11 @@ class _SinglePosturePageState extends State<SinglePosturePage> {
               ),
             ),
           ),
-          // SizedBox(
-          //   width: myBanner.size.width.toDouble(),
-          //   height: myBanner.size.height.toDouble(),
-          //   child: AdWidget(ad: myBanner),
-          // )
+          SizedBox(
+            width: myBanner.size.width.toDouble(),
+            height: myBanner.size.height.toDouble(),
+            child: AdWidget(ad: myBanner),
+          )
         ],
       ),
     );

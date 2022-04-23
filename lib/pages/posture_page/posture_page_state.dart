@@ -1,11 +1,13 @@
 import 'dart:async';
 
+import 'package:better_sit_floor/shared/ad_helper.dart';
 import 'package:flutter/material.dart';
-// import 'package:audioplayers/audioplayers.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:better_sit_floor/model/posture.dart';
 import 'package:better_sit_floor/pages/posture_page/posture_page.dart';
 import 'package:better_sit_floor/shared/constants.dart';
-//import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:flutter/services.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class PosturePageManager extends StatefulWidget {
   const PosturePageManager(this.time, this.postures, {Key? key})
@@ -32,11 +34,11 @@ class _PosturePageManagerState extends State<PosturePageManager> {
       oneSec,
       (Timer timer) async {
         if (_start >= widget.time) {
-          // final player = AudioCache();
-          // const String alarmAudioPath = "sound.mp3";
-          // player.play(alarmAudioPath);
-          // HapticFeedback.vibrate();
-          // HapticFeedback.heavyImpact();
+          final player = AudioCache();
+          const String alarmAudioPath = "sound.mp3";
+          player.play(alarmAudioPath);
+          HapticFeedback.vibrate();
+          HapticFeedback.heavyImpact();
           setState(() {
             _start = 0;
             setState(() {
@@ -55,13 +57,13 @@ class _PosturePageManagerState extends State<PosturePageManager> {
   @override
   void dispose() {
     _timer.cancel();
-    // myBanner.dispose();
+    myBanner.dispose();
     super.dispose();
   }
 
   @override
   void initState() {
-    // myBanner.load();
+    myBanner.load();
     startTimer();
     // postureData.forEach((key, value) {
     //   data.add(PostureModel.fromJson(value, key));
@@ -77,12 +79,12 @@ class _PosturePageManagerState extends State<PosturePageManager> {
     });
   }
 
-  // final BannerAd myBanner = BannerAd(
-  //   adUnitId: BANNER_ID,
-  //   size: AdSize.banner,
-  //   request: const AdRequest(),
-  //   listener: const BannerAdListener(),
-  // );
+  final BannerAd myBanner = BannerAd(
+    adUnitId: AdHelper(testing: false).bannerAdUnitId,
+    size: AdSize.banner,
+    request: const AdRequest(),
+    listener: const BannerAdListener(),
+  );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,12 +100,21 @@ class _PosturePageManagerState extends State<PosturePageManager> {
                 next: next,
               ),
             ),
-            // SizedBox(
-            //   width: myBanner.size.width.toDouble(),
-            //   height: myBanner.size.height.toDouble(),
-            //   child: AdWidget(ad: myBanner),
-            // )
+            SizedBox(
+              width: myBanner.size.width.toDouble(),
+              height: myBanner.size.height.toDouble(),
+              child: AdWidget(ad: myBanner),
+            )
           ],
         ));
+  }
+}
+
+class BannerClass extends StatelessWidget {
+  const BannerClass({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }
