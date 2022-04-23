@@ -30,7 +30,7 @@ class _SinglePosturePageState extends State<SinglePosturePage> {
   }
 
   final BannerAd myBanner = BannerAd(
-    adUnitId: AdHelper(testing: false).bannerAdUnitId,
+    adUnitId: AdHelper(testing: true).bannerAdUnitId,
     size: AdSize.banner,
     request: const AdRequest(),
     listener: const BannerAdListener(),
@@ -45,9 +45,6 @@ class _SinglePosturePageState extends State<SinglePosturePage> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  const SizedBox(
-                    height: 30,
-                  ),
                   Container(
                     padding: const EdgeInsets.all(14).copyWith(bottom: 6),
                     alignment: Alignment.centerLeft,

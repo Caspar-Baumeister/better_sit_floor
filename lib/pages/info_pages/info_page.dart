@@ -6,28 +6,28 @@ class InfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: DARK_GREY,
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(
-              height: 40,
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 14)
-                  .copyWith(bottom: 6),
-              alignment: Alignment.centerLeft,
-              child: GestureDetector(
-                  onTap: () => Navigator.pop(context),
-                  child: const Icon(
-                    Icons.arrow_back_ios,
-                    color: Colors.white,
-                  )),
-            ),
-            ...data.map((obj) => InfoCard(info: InfoCardData.fromJson(obj)))
-          ],
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: DARK_GREY,
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 14, vertical: 10)
+                        .copyWith(bottom: 6),
+                alignment: Alignment.centerLeft,
+                child: GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: const Icon(
+                      Icons.arrow_back_ios,
+                      color: Colors.white,
+                    )),
+              ),
+              ...data.map((obj) => InfoCard(info: InfoCardData.fromJson(obj)))
+            ],
+          ),
         ),
       ),
     );

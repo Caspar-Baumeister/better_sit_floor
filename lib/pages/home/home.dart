@@ -23,79 +23,82 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: DARK_GREY,
-      body: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                GestureDetector(
-                  child: const Icon(
-                    Icons.zoom_in,
-                    color: Colors.white,
-                  ),
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const Overview()),
-                  ),
-                ),
-                const SizedBox(width: 10),
-                GestureDetector(
-                  child: const Icon(
-                    Icons.info,
-                    color: Colors.white,
-                  ),
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const InfoPage()),
-                  ),
-                )
-              ],
-            ),
-          ),
-          Expanded(
-              child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Clock(time),
-                const SizedBox(height: 20),
-                Slider(
-                  activeColor: PRIMARY_COLOR,
-                  inactiveColor: LIGHT_GREY,
-                  thumbColor: WHITE,
-                  value: time,
-                  onChanged: changeTime,
-                  max: 1800,
-                  min: 10,
-                ),
-                const SizedBox(height: 40),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: DARK_GREY,
+        body: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  GestureDetector(
+                    child: const Icon(
+                      Icons.zoom_in,
+                      color: Colors.white,
+                    ),
+                    onTap: () => Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => DataLoader(time)),
-                    );
-                  },
-                  child: Container(
-                      padding: const EdgeInsets.all(40),
-                      decoration: BoxDecoration(
-                        color: PRIMARY_COLOR,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Text(
-                        "START",
-                        style: TextStyle(color: WHITE, fontSize: 26),
-                      )),
-                )
-              ],
+                      MaterialPageRoute(builder: (context) => const Overview()),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  GestureDetector(
+                    child: const Icon(
+                      Icons.info,
+                      color: Colors.white,
+                    ),
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const InfoPage()),
+                    ),
+                  )
+                ],
+              ),
             ),
-          ))
-        ],
+            Expanded(
+                child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Clock(time),
+                  const SizedBox(height: 20),
+                  Slider(
+                    activeColor: PRIMARY_COLOR,
+                    inactiveColor: LIGHT_GREY,
+                    thumbColor: WHITE,
+                    value: time,
+                    onChanged: changeTime,
+                    max: 1800,
+                    min: 10,
+                  ),
+                  const SizedBox(height: 40),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DataLoader(time)),
+                      );
+                    },
+                    child: Container(
+                        padding: const EdgeInsets.all(40),
+                        decoration: BoxDecoration(
+                          color: PRIMARY_COLOR,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Text(
+                          "START",
+                          style: TextStyle(color: WHITE, fontSize: 26),
+                        )),
+                  )
+                ],
+              ),
+            ))
+          ],
+        ),
       ),
     );
   }

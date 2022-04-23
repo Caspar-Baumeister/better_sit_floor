@@ -80,33 +80,35 @@ class _PosturePageManagerState extends State<PosturePageManager> {
   }
 
   final BannerAd myBanner = BannerAd(
-    adUnitId: AdHelper(testing: false).bannerAdUnitId,
+    adUnitId: AdHelper(testing: true).bannerAdUnitId,
     size: AdSize.banner,
     request: const AdRequest(),
     listener: const BannerAdListener(),
   );
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: DARK_GREY,
-        body: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Expanded(
-              child: PosturePage(
-                maxTime: widget.time,
-                currentTime: _start,
-                data: widget.postures[index],
-                next: next,
+    return SafeArea(
+      child: Scaffold(
+          backgroundColor: DARK_GREY,
+          body: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Expanded(
+                child: PosturePage(
+                  maxTime: widget.time,
+                  currentTime: _start,
+                  data: widget.postures[index],
+                  next: next,
+                ),
               ),
-            ),
-            SizedBox(
-              width: myBanner.size.width.toDouble(),
-              height: myBanner.size.height.toDouble(),
-              child: AdWidget(ad: myBanner),
-            )
-          ],
-        ));
+              SizedBox(
+                width: myBanner.size.width.toDouble(),
+                height: myBanner.size.height.toDouble(),
+                child: AdWidget(ad: myBanner),
+              )
+            ],
+          )),
+    );
   }
 }
 
