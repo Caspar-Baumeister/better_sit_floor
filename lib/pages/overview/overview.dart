@@ -42,7 +42,8 @@ class Overview extends StatelessWidget {
                       childAspectRatio: 0.7),
                   itemBuilder: (BuildContext context, int index) {
                     PostureModel item = postureProvider.getById(index);
-                    return OverviewPostureCard(item);
+                    return OverviewPostureCard(
+                        item, postureProvider.isItemUsed(item.id));
                   },
                 ),
               )
@@ -55,46 +56,82 @@ class Overview extends StatelessWidget {
 }
 
 class OverviewPostureCard extends StatelessWidget {
-  const OverviewPostureCard(this.item, {Key? key}) : super(key: key);
+  const OverviewPostureCard(this.item, this.isUsed, {Key? key})
+      : super(key: key);
 
   final PostureModel item;
+  final bool isUsed;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => SinglePosturePage(item)),
-      ),
-      child: ClipRRect(
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-        child: Container(
-          color: Colors.white,
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Center(
-                child: Text(
-                  item.name,
-                  style: SMALLTITLE,
-                  maxLines: 2,
-                  overflow: TextOverflow.fade,
-                  textAlign: TextAlign.center,
-                ),
+    return Stack(
+      children: [
+        GestureDetector(
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SinglePosturePage(item)),
+          ),
+          child: ClipRRect(
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+            child: Container(
+              decoration: isUsed
+                  ? BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                        width: 3,
+                        color: Colors.green,
+                      ),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    )
+                  : BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                        color: Colors.red,
+                        width: 3,
+                      ),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    ),
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Center(
+                    child: Text(
+                      item.name,
+                      style: SMALLTITLE,
+                      maxLines: 2,
+                      overflow: TextOverflow.fade,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  Container(
+                    constraints: const BoxConstraints(maxHeight: 100),
+                    child: Image.asset(
+                      item.imgUrl,
+                      fit: BoxFit.scaleDown,
+                      width: double.infinity,
+                    ),
+                  ),
+                ],
               ),
-              Container(
-                constraints: const BoxConstraints(maxHeight: 100),
-                child: Image.asset(
-                  item.imgUrl,
-                  fit: BoxFit.scaleDown,
-                  width: double.infinity,
-                ),
-              ),
-            ],
+            ),
           ),
         ),
-      ),
+        Positioned(
+          right: 9,
+          bottom: 9,
+          child: GestureDetector(
+              onTap: () => Provider.of<PostureProvider>(context, listen: false)
+                  .swapItemUsed(item.id),
+              child: isUsed
+                  ? const Icon(
+                      Icons.check_circle_outline_rounded,
+                      color: Colors.green,
+                    )
+                  : const Icon(Icons.radio_button_unchecked_rounded,
+                      color: Colors.green)),
+        )
+      ],
     );
   }
 }

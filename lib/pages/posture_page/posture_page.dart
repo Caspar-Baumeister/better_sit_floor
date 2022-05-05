@@ -53,6 +53,7 @@ class PosturePage extends StatelessWidget {
           padding: const EdgeInsets.only(top: 20, bottom: 15),
           child: Text(
             data.name,
+            textAlign: TextAlign.center,
             style: const TextStyle(color: Colors.white, fontSize: 34),
           ),
         ),

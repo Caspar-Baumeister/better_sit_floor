@@ -18,6 +18,20 @@ class PostureProvider extends ChangeNotifier {
     loadData();
   }
 
+  bool isItemUsed(int id) {
+    return _arePosturesUsed[id]!;
+  }
+
+  List<PostureModel> getUsedPostures() {
+    return List<PostureModel>.from(
+        _postures.where((pose) => _arePosturesUsed[pose.id]!));
+  }
+
+  swapItemUsed(int id) {
+    _arePosturesUsed[id] = !_arePosturesUsed[id]!;
+    notifyListeners();
+  }
+
   set postures(List<PostureModel> postures) {
     _postures = postures;
     notifyListeners();

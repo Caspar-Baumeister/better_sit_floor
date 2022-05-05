@@ -13,7 +13,7 @@ class DataLoader extends StatelessWidget {
     PostureProvider postureProvider = Provider.of<PostureProvider>(context);
 
     return postureProvider.initialized
-        ? PosturePageManager(time, postureProvider.postures)
+        ? PosturePageManager(time, postureProvider.getUsedPostures())
         : Container();
   }
 }
