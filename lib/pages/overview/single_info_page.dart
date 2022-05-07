@@ -30,7 +30,7 @@ class _SinglePosturePageState extends State<SinglePosturePage> {
   }
 
   final BannerAd myBanner = BannerAd(
-    adUnitId: AdHelper(testing: true).bannerAdUnitId,
+    adUnitId: AdHelper(testing: false).bannerAdUnitId,
     size: AdSize.banner,
     request: const AdRequest(),
     listener: const BannerAdListener(),

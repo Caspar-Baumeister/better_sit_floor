@@ -80,7 +80,7 @@ class _PosturePageManagerState extends State<PosturePageManager> {
   }
 
   final BannerAd myBanner = BannerAd(
-    adUnitId: AdHelper(testing: true).bannerAdUnitId,
+    adUnitId: AdHelper(testing: false).bannerAdUnitId,
     size: AdSize.banner,
     request: const AdRequest(),
     listener: const BannerAdListener(),
