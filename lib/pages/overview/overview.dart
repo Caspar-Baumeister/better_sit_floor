@@ -31,8 +31,10 @@ class Overview extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
                 child: GridView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: postureProvider.postures.length,
                   gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
@@ -129,7 +131,7 @@ class OverviewPostureCard extends StatelessWidget {
                       color: Colors.green,
                     )
                   : const Icon(Icons.radio_button_unchecked_rounded,
-                      color: Colors.green)),
+                      color: Colors.red)),
         )
       ],
     );

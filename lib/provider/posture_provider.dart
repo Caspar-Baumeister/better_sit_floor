@@ -1,3 +1,4 @@
+import 'package:better_sit_floor/preferences/used_poses.dart';
 import 'package:flutter/material.dart';
 import 'package:better_sit_floor/data/postures.dart';
 import 'package:better_sit_floor/model/posture.dart';
@@ -29,6 +30,10 @@ class PostureProvider extends ChangeNotifier {
 
   swapItemUsed(int id) {
     _arePosturesUsed[id] = !_arePosturesUsed[id]!;
+    if (!_arePosturesUsed.containsValue(true)) {
+      _arePosturesUsed[id] = !_arePosturesUsed[id]!;
+    }
+    safeUsedPoses();
     notifyListeners();
   }
 
@@ -42,11 +47,45 @@ class PostureProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  safeUsedPoses() {
+    List<String> userPostureStringList = [];
+
+    _arePosturesUsed.forEach((key, value) {
+      if (value) {
+        userPostureStringList.add(key.toString());
+      }
+      UsedPosesPreferences.set(userPostureStringList);
+    });
+  }
+
+  loadUsedPoses() {
+    List<String> userPostureStringList = UsedPosesPreferences.get();
+
+    if (userPostureStringList.isEmpty) {
+      postureData.forEach((key, value) {
+        _arePosturesUsed[key] = true;
+      });
+    }
+    //print(_arePosturesUsed);
+    else {
+      Map<int, bool> _arePosturesUsedNew = {};
+      for (var element in _postures) {
+        if (userPostureStringList.contains(element.id.toString())) {
+          _arePosturesUsedNew[element.id.toInt()] = true;
+        } else {
+          _arePosturesUsedNew[element.id.toInt()] = false;
+        }
+      }
+      _arePosturesUsed = _arePosturesUsedNew;
+    }
+  }
+
   Future loadData() async {
     postureData.forEach((key, value) {
       _postures.add(PostureModel.fromJson(value, key));
-      _arePosturesUsed[key] = true;
+      //_arePosturesUsed[key] = true;
     });
+    loadUsedPoses();
     _postures.shuffle();
     initialized = true;
     notifyListeners();
